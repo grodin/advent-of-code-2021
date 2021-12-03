@@ -2,7 +2,10 @@
 	"folders":
 	[
 		{
-			"path": "day01"
+			"path": ".",
+			"name": "Root",
+			"folder_exclude_patterns": ["target", "cache"],
+			"file_exclude_patterns": ["Cargo.lock"]
 		}
 	],
 }
