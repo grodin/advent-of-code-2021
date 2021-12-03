@@ -1,7 +1,7 @@
 [package]
 name = "aoc2021"
 version = "0.1.0"
-edition = "2018"
+edition = "2021"
 authors = ["Joseph Cooper <cooper.joseph@gmail.com>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -11,4 +11,5 @@ authors = ["Joseph Cooper <cooper.joseph@gmail.com>"]
 [workspace]
 members = [
 	"day01",
+	"day02",
 ]
