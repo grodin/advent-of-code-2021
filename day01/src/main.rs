@@ -1,11 +1,9 @@
-use day01::{part1,part2};
+use day01::{part1, part2};
 
-use color_eyre::eyre::Result;
-
-fn main() -> Result<()>{
+fn main() {
     let input = include_str!("input.txt");
 
-    part1(input)?;
+    println!("Part 1: {}", part1(input));
 
-    Ok(())
+    println!("Part 2: {}", part2(input));
 }
