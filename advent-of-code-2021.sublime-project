@@ -5,7 +5,17 @@
 			"path": ".",
 			"name": "Root",
 			"folder_exclude_patterns": ["target", "cache"],
-			"file_exclude_patterns": ["Cargo.lock"]
+			"file_exclude_patterns": ["Cargo.lock"],
 		}
 	],
+	"settings":
+	{
+		"LSP":
+		{
+			"rust-analyzer":
+			{
+				"enabled": true,
+			},
+		},
+	},
 }
