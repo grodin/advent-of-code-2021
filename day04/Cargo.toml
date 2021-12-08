@@ -1,18 +1,10 @@
 [package]
-name = "aoc2021"
+name = "day04"
 version = "0.1.0"
 edition = "2021"
-authors = ["Joseph Cooper <cooper.joseph@gmail.com>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-
-[workspace]
-members = [
-	"day01",
-	"day02",
-	"day03",
-	"day04",
-####
-]
+color-eyre = "0.5.11"
+indoc = "1.0"
