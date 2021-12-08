@@ -1,9 +1,12 @@
-pub fn part1(input: &str) -> String {
-    unimplemented!()
+use color_eyre::eyre::{eyre, Result};
+
+
+pub fn part1(input: &str) -> Result<String> {
+    Err(eyre!("Not implemented"))
 }
 
-pub fn part2(input: &str) -> String {
-    unimplemented!()
+pub fn part2(input: &str) -> Result<String> {
+    Err(eyre!("Not implemented"))
 }
 
 #[cfg(test)]
@@ -17,12 +20,14 @@ mod tests {
     };
 
     #[test]
-    fn part1_test_input() {
-        assert_eq!("", part1(TEST_INPUT))
+    fn part1_test_input() -> Result<()> {
+        assert_eq!("", part1(TEST_INPUT)?);
+        Ok(())
     }
 
     #[test]
-    fn part2_test_input() {
-        assert_eq!("", part2(TEST_INPUT))
+    fn part2_test_input() -> Result<()> {
+        assert_eq!("", part2(TEST_INPUT)?);
+        Ok(())
     }
 }
