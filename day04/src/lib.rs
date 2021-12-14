@@ -4,13 +4,23 @@ type Cell = (u32, bool);
 type Board = [[Cell; 5]; 5];
 
 pub fn part1(input: &str) -> Result<u32> {
+    solution(input, |_| true)
+}
+
+pub fn part2(input: &str) -> Result<u32> {
+    solution(input, |n| n == 0)
+}
+
+fn solution<F: Fn(usize) -> bool>(input: &str, f: F) -> Result<u32> {
     let mut lines = input.lines();
     let moves = parse_moves(lines.next().ok_or_else(|| eyre!("No lines of input!"))?)?;
     let mut boards = parse_boards(&lines.collect::<Vec<_>>().chunks(6).collect::<Vec<_>>())?;
-    let mut winner: Option<(u32, Board)> = None;
+    let boards_count = boards.len();
 
+    let mut winners = vec![false; boards.len()].into_boxed_slice();
+    let mut winner: Option<(u32, Board)> = None;
     'moves: for m in moves.iter() {
-        for board in boards.iter_mut() {
+        for (i, board) in boards.iter_mut().enumerate() {
             for row in board.iter_mut() {
                 for (entry, selected) in row.into_iter() {
                     if !*selected && entry == m {
@@ -19,8 +29,11 @@ pub fn part1(input: &str) -> Result<u32> {
                 }
             }
             if is_board_a_winner(&board) {
-                winner = Some((*m, *board));
-                break 'moves;
+                winners[i] = true;
+                if f(boards_count - winners.iter().filter(|&w| *w).count()) {
+                    winner = Some((*m, *board));
+                    break 'moves;
+                }
             }
         }
     }
@@ -77,17 +90,7 @@ fn parse_boards(chunks: &[&[&str]]) -> Result<Vec<Board>> {
         }
         boards.push(board.try_into().unwrap());
     }
-    // chunks
-    //     .map(|&lines| lines.iter().skip(1).map(|line|
-    //         line.split_whitespace().map(|entry|(entry.parse::<u32>(), false))).collect::<Vec<_>>()
-    //     .try_into();).collect::<Vec<_>>()
-    //     .try_into();
-    //     ).collect();
     Ok(boards)
-}
-
-pub fn part2(input: &str) -> Result<String> {
-    Err(eyre!("Not implemented"))
 }
 
 #[cfg(test)]
@@ -126,7 +129,7 @@ mod tests {
 
     #[test]
     fn part2_test_input() -> Result<()> {
-        assert_eq!("", part2(TEST_INPUT)?);
+        assert_eq!(1924, part2(TEST_INPUT)?);
         Ok(())
     }
 }
