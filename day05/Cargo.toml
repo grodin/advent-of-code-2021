@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 color-eyre = "0.5.11"
 indoc = "1.0"
+thiserror = "1.0"
