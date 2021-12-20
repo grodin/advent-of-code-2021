@@ -1,6 +1,39 @@
 use color_eyre::eyre::{eyre, Context, Result};
 
 pub fn part1(input: &str) -> Result<u32> {
+    fn calculate_fuel_cost_pt1(
+        count: &u16,
+        original_position: &usize,
+        destination_position: &usize,
+    ) -> Result<u32> {
+        let count = *count as i128;
+        let orig_pos = *original_position as i128;
+        let dest_pos = *destination_position as i128;
+        Ok((count * (orig_pos - dest_pos).abs()).try_into()?)
+    }
+    solution(input, calculate_fuel_cost_pt1)
+}
+
+pub fn part2(input: &str) -> Result<u32> {
+    fn calculate_fuel_cost_pt2(
+        count: &u16,
+        original_position: &usize,
+        destination_position: &usize,
+    ) -> Result<u32> {
+        let count = *count as i128;
+        let orig_pos = *original_position as i128;
+        let dest_pos = *destination_position as i128;
+        let cost = (orig_pos - dest_pos).abs();
+        let cost = (cost * (cost + 1)) / 2;
+        Ok((count * cost).try_into()?)
+    }
+    solution(input, calculate_fuel_cost_pt2)
+}
+
+fn solution<F: Fn(&u16, &usize, &usize) -> Result<u32>>(
+    input: &str,
+    calculate_fuel_cost: F,
+) -> Result<u32> {
     let count_by_position = parse_input(input)?;
     let mut fuel_champion = u32::MAX;
     for i in 0..count_by_position.len() {
@@ -16,20 +49,6 @@ pub fn part1(input: &str) -> Result<u32> {
         }
     }
     Ok(fuel_champion)
-}
-
-fn calculate_fuel_cost(
-    count: &u16,
-    original_position: &usize,
-    destination_position: &usize,
-) -> Result<u32> {
-    let count = *count as i128;
-    let orig_pos = *original_position as i128;
-    let dest_pos = *destination_position as i128;
-    Ok((count * (orig_pos - dest_pos).abs()).try_into()?)
-}
-pub fn part2(input: &str) -> Result<u64> {
-    Err(eyre!("Not implemented"))
 }
 
 type CountByPosition = Box<[u16]>;
@@ -68,7 +87,7 @@ mod tests {
 
     #[test]
     fn part2_test_input() -> Result<()> {
-        assert_eq!(0, part2(TEST_INPUT)?);
+        assert_eq!(168, part2(TEST_INPUT)?);
         Ok(())
     }
 }
