@@ -1,12 +1,15 @@
 use color_eyre::eyre::{eyre, Result};
 
-
 pub fn part1(input: &str) -> Result<String> {
     Err(eyre!("Not implemented"))
 }
 
 pub fn part2(input: &str) -> Result<String> {
     Err(eyre!("Not implemented"))
+}
+
+fn parse_input(input: &str) -> Result<Vec<_>> {
+    input.lines().map(|s| s.trim())
 }
 
 #[cfg(test)]
